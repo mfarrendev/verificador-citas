@@ -1,0 +1,36 @@
+{
+  "name": "verificador-citas",
+  "version": "0.1.0",
+  "description": "Juez determinista para texto generado por IA: citas literales, cifras con fuente y links vivos, sin modelo de lenguaje.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Max Farren",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "verificador-citas": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.12"
+  }
+}
