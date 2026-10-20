@@ -6,6 +6,12 @@ const ETIQUETA: Record<Informe["veredicto"], string> = {
   rechazado: "RECHAZADO",
 };
 
+/**
+ * Bajo esta similitud el "fragmento más cercano" es ruido y mostrarlo
+ * confunde más de lo que ayuda. En --json se entrega igual.
+ */
+const UMBRAL_PARECIDO = 0.6;
+
 /** Salida legible para la terminal, sin colores para que sirva en un log. */
 export function formatearInforme(inf: Informe, titulo?: string): string {
   const l: string[] = [];
@@ -15,7 +21,10 @@ export function formatearInforme(inf: Informe, titulo?: string): string {
     l.push(`[${a.aprobada ? "ok" : "NO"}] ${a.id}`);
     for (const h of a.hallazgos) l.push(`     ${linea(h)}`);
     for (const h of a.hallazgos) {
-      if (h.detalle?.fragmentoCercano !== undefined) {
+      const sim = Number(h.detalle?.similitud ?? 0);
+      if (h.detalle?.fragmentoCercano !== undefined && sim < UMBRAL_PARECIDO) {
+        l.push(`       nada parecido en las fuentes (similitud ${sim})`);
+      } else if (h.detalle?.fragmentoCercano !== undefined) {
         l.push(`       más cercano en la fuente: "${h.detalle.fragmentoCercano}"`);
         l.push(`       distancia ${h.detalle.distancia}, similitud ${h.detalle.similitud}`);
       }

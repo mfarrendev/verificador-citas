@@ -159,13 +159,16 @@ async function verificarAfirmacion(
     if (r.estado === "link-no-verificable") h.push(hallazgo("link-no-verificable", `no se pudo comprobar el link: ${r.motivo}`, { url: ref.url }));
   }
 
-  // Cita literal.
+  // Cita literal. Solo una cita encontrada sirve después para respaldar
+  // cifras: una cita inventada no puede respaldar sus propias cifras.
+  let citaVerificada = false;
   if (cita !== "" && refs.length > 0) {
     if (textos.length === 0) {
       h.push(hallazgo("cita-sin-texto-de-fuente", "ninguna fuente declarada tiene texto local contra el cual comparar la cita"));
     } else {
       const resultados = textos.map((t) => buscarCita(cita, t, opciones));
-      if (!resultados.some((r) => r.encontrada)) {
+      citaVerificada = resultados.some((r) => r.encontrada);
+      if (!citaVerificada) {
         const mejor = resultados.reduce((a, b) => ((b.similitud ?? 0) > (a.similitud ?? 0) ? b : a));
         const detalle: Record<string, string | number> = {};
         if (mejor.fragmentoCercano !== undefined) detalle.fragmentoCercano = mejor.fragmentoCercano;
@@ -178,7 +181,7 @@ async function verificarAfirmacion(
 
   // Cifras del texto de la afirmación.
   for (const cifra of extraerCifras(af.texto)) {
-    if (cita !== "" && cifraPresente(cifra, cita)) continue;
+    if (citaVerificada && cifraPresente(cifra, cita)) continue;
     if (textos.some((t) => cifraPresente(cifra, t))) {
       h.push(hallazgo("cifra-fuera-de-cita", `la cifra "${cifra.texto}" está en la fuente pero no en la cita`, { cifra: cifra.texto }));
     } else {

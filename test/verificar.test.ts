@@ -58,6 +58,14 @@ describe("verificarDocumento", () => {
     expect(inf.afirmaciones[0]!.aprobada).toBe(false);
   });
 
+  it("una cita inventada no respalda las cifras que trae", async () => {
+    const doc = leerDocumento({
+      afirmaciones: [{ id: "a", texto: "Creció 9,9%.", cita: "la exportación de cobre creció 9,9%", fuentes: ["informe-2024"] }],
+    });
+    const inf = await verificarDocumento(doc, sinRed);
+    expect(codigos(inf)).toEqual(["cita-no-encontrada", "cifra-sin-respaldo"]);
+  });
+
   it("solo avisa cuando la cifra está en la fuente pero fuera de la cita", async () => {
     const doc = leerDocumento({
       afirmaciones: [{ id: "a", texto: "Creció 4,3% hasta USD 50,8 mil millones.", cita: "creció 4,3%", fuentes: ["informe-2024"] }],
