@@ -1,0 +1,33 @@
+{
+  "titulo": "Resumen generado: movilidad urbana",
+  "afirmaciones": [
+    {
+      "id": "transporte-publico",
+      "texto": "El transporte público subió de 31,2% a 38,6% de los viajes al trabajo entre 2019 y 2025.",
+      "cita": "El 38,6% de los viajes al trabajo se hizo en transporte público, frente al 31,2% registrado en 2019.",
+      "fuentes": ["encuesta-movilidad"]
+    },
+    {
+      "id": "bicicleta",
+      "texto": "El uso de bicicleta se triplicó, del 2,1% al 6,3%.",
+      "cita": "El uso de bicicleta pasó del 2,1% al 6,3% en el mismo período.",
+      "fuentes": ["encuesta-movilidad"]
+    },
+    {
+      "id": "ciclovias",
+      "texto": "Se invertirán USD 12.500.000 en ciclovías; la primera etapa suma 18 km.",
+      "cita": "La inversión aprobada para ciclovías asciende a USD 12,5 millones",
+      "fuentes": ["presupuesto-municipal.md"]
+    },
+    {
+      "id": "gasto-hogares",
+      "texto": "Los hogares de menores ingresos gastan cerca de $86.400 al mes en transporte."
+    },
+    {
+      "id": "metodologia",
+      "texto": "La metodología sigue el estándar internacional de encuestas origen-destino.",
+      "cita": "metodología estándar de encuestas origen-destino",
+      "fuentes": [{ "archivo": "encuesta-movilidad", "url": "https://example.com/" }]
+    }
+  ]
+}

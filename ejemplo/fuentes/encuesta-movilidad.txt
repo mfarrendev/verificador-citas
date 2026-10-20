@@ -1,0 +1,9 @@
+Encuesta de movilidad urbana — resultados preliminares (documento ficticio de ejemplo)
+
+Entre marzo y mayo de 2025 se encuestó a 4.812 hogares de la ciudad. El 38,6% de los
+viajes al trabajo se hizo en transporte público, frente al 31,2% registrado en 2019.
+El uso de bicicleta pasó del 2,1% al 4,7% en el mismo período.
+
+El tiempo promedio de viaje al trabajo fue de 47 minutos. Los hogares de menores
+ingresos destinan en promedio $86.400 mensuales a transporte, cerca del 11% de su
+ingreso.

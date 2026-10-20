@@ -19,8 +19,8 @@ export function formatearInforme(inf: Informe, titulo?: string): string {
   for (const h of inf.generales) l.push(linea(h));
   for (const a of inf.afirmaciones) {
     l.push(`[${a.aprobada ? "ok" : "NO"}] ${a.id}`);
-    for (const h of a.hallazgos) l.push(`     ${linea(h)}`);
     for (const h of a.hallazgos) {
+      l.push(`     ${linea(h)}`);
       const sim = Number(h.detalle?.similitud ?? 0);
       if (h.detalle?.fragmentoCercano !== undefined && sim < UMBRAL_PARECIDO) {
         l.push(`       nada parecido en las fuentes (similitud ${sim})`);
