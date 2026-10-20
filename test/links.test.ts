@@ -78,6 +78,17 @@ describe("verificarLink", () => {
     expect(pedidos).toEqual(["HEAD https://ejemplo.org/b", "GET https://ejemplo.org/b"]);
   });
 
+  it("un 404 a HEAD se confirma con GET antes de declarar el link caído", async () => {
+    const pedidos: string[] = [];
+    const g = (async (u: string | URL | Request, init?: RequestInit) => {
+      pedidos.push(`${init?.method} ${String(u)}`);
+      return new Response(null, { status: init?.method === "HEAD" ? 404 : 200 });
+    }) as typeof fetch;
+    const r = await verificarLink("https://ejemplo.org/c", { fetch: g, resolver: publico });
+    expect(r.estado).toBe("link-vivo");
+    expect(pedidos).toEqual(["HEAD https://ejemplo.org/c", "GET https://ejemplo.org/c"]);
+  });
+
   it("sigue redirecciones hasta el destino final", async () => {
     const { o } = opts({
       "https://ejemplo.org/viejo": { status: 301, location: "/nuevo" },

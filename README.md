@@ -231,9 +231,9 @@ forma automática.
 - La búsqueda aproximada es cuadrática. En fuentes muy grandes se limita a
   la ventana que comparte más palabras con la cita, y el fragmento cercano
   puede no ser el óptimo.
-- Algunos servidores responden mal a `HEAD`. Si contestan 405 o 501 se
-  reintenta con `GET`; si contestan 404 a `HEAD` y 200 a `GET`, se informa
-  como caído.
+- Se pregunta primero con `HEAD` y, ante 404, 405, 410 o 501, se confirma
+  con `GET`. Un servidor que responde 200 a una página que ya no existe (un
+  "404 blando") se informa como vivo: el estado HTTP es lo único que se mira.
 
 ## Desarrollo
 

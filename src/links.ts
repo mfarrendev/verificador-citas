@@ -85,7 +85,9 @@ export async function verificarLink(url: string, opciones: OpcionesLinks = {}): 
     let resp: Response;
     try {
       resp = await pedir(f, actual.href, "HEAD", timeoutMs);
-      if (resp.status === 405 || resp.status === 501) resp = await pedir(f, actual.href, "GET", timeoutMs);
+      // Algunos servidores contestan mal a HEAD. Antes de declarar un link
+      // caído (o de rendirse con 405/501), se confirma con GET.
+      if ([404, 405, 410, 501].includes(resp.status)) resp = await pedir(f, actual.href, "GET", timeoutMs);
     } catch (e) {
       const nombre = (e as Error).name;
       const motivo = nombre === "TimeoutError" || nombre === "AbortError" ? `sin respuesta en ${timeoutMs} ms` : `error de red: ${(e as Error).message}`;
