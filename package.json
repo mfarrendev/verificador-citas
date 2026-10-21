@@ -26,11 +26,30 @@
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build && npm test"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
     "typescript": "^5.9.3",
     "vitest": "^4.1.12"
+  },
+  "keywords": [
+    "llm",
+    "citations",
+    "fact-checking",
+    "verification",
+    "ai"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mfarrendev/verificador-citas.git"
+  },
+  "homepage": "https://github.com/mfarrendev/verificador-citas#readme",
+  "bugs": {
+    "url": "https://github.com/mfarrendev/verificador-citas/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
